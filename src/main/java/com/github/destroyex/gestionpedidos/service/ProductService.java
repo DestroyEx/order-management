@@ -4,6 +4,7 @@ import com.github.destroyex.gestionpedidos.dao.ProductRepository;
 import com.github.destroyex.gestionpedidos.dto.ProductRequestDTO;
 import com.github.destroyex.gestionpedidos.dto.ProductResponseDTO;
 import com.github.destroyex.gestionpedidos.entity.Product;
+import com.github.destroyex.gestionpedidos.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class ProductService {
     public ProductResponseDTO findById(Long id) {
         return productRepository.findById(id)
                 .map(this::toResponseDTO)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     public ProductResponseDTO create(ProductRequestDTO requestDTO) {
@@ -43,13 +44,13 @@ public class ProductService {
 
     public void delete(Long id) {
         Product deletedProduct = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         productRepository.delete(deletedProduct);
     }
 
     public ProductResponseDTO update(Long id, ProductRequestDTO updatedProduct) {
         Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
 
         existingProduct.setName(updatedProduct.getName());
         existingProduct.setDescription(updatedProduct.getDescription());

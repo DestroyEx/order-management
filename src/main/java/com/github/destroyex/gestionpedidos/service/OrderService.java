@@ -9,6 +9,7 @@ import com.github.destroyex.gestionpedidos.dto.OrderResponseDTO;
 import com.github.destroyex.gestionpedidos.entity.Order;
 import com.github.destroyex.gestionpedidos.entity.OrderLine;
 import com.github.destroyex.gestionpedidos.entity.Product;
+import com.github.destroyex.gestionpedidos.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ public class OrderService {
     public OrderResponseDTO findById(Long id) {
         return orderRepository.findById(id)
                 .map(this::toOrderResponseDTO)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
     }
 
     public OrderResponseDTO create(OrderRequestDTO orderRequestDTO) {
@@ -47,7 +48,7 @@ public class OrderService {
         List<OrderLine> orderLines = new ArrayList<>();
         for (OrderLineRequestDTO lineDTO : orderRequestDTO.getOrderLines()) {
             Product product = productRepository.findById(lineDTO.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + lineDTO.getProductId()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + lineDTO.getProductId()));
             OrderLine orderLine = new OrderLine();
             orderLine.setProduct(product);
             orderLine.setQuantity(lineDTO.getQuantity());
@@ -63,18 +64,18 @@ public class OrderService {
 
     public void delete(Long id) {
         Order deletedOrder = orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + id));
         orderRepository.delete(deletedOrder);
     }
 
     public OrderResponseDTO update(Long id, OrderRequestDTO updatedOrder) {
         Order existingOrder = orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("order not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("order not found with id: " + id));
 
         List<OrderLine> orderLines = new ArrayList<>();
         for (OrderLineRequestDTO lineDTO : updatedOrder.getOrderLines()) {
             Product product = productRepository.findById(lineDTO.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + lineDTO.getProductId()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + lineDTO.getProductId()));
             OrderLine orderLine = new OrderLine();
             orderLine.setProduct(product);
             orderLine.setQuantity(lineDTO.getQuantity());
