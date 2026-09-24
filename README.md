@@ -1,6 +1,7 @@
 # Order Management
 
-REST API for managing orders, order lines, and products, built as a portfolio project to practice backend development with Spring Boot.
+REST API for managing orders, order lines, and products, built as a portfolio project to practice backend development
+with Spring Boot.
 
 ## Stack
 
@@ -13,6 +14,7 @@ REST API for managing orders, order lines, and products, built as a portfolio pr
 ## Features
 
 CRUD operations for:
+
 - **Products**: create, retrieve, update, and delete products (name, description, price, stock)
 - **Orders**: create orders with their associated order lines, retrieve, update, and delete
 
@@ -27,32 +29,36 @@ CRUD operations for:
 CREATE DATABASE gestion_pedidos;
 ```
 
-You don't need Maven installed: the project includes the Maven Wrapper (`mvnw` / `mvnw.cmd`), which downloads and uses the correct version automatically.
+You don't need Maven installed: the project includes the Maven Wrapper (`mvnw` / `mvnw.cmd`), which downloads and uses
+the correct version automatically.
 
 ### Configuration
 
 The application reads database credentials from environment variables:
 
-| Variable | Description | Default |
-|---|---|---|
-| `DB_USERNAME` | PostgreSQL username | `postgres` |
+| Variable      | Description         | Default                        |
+|---------------|---------------------|--------------------------------|
+| `DB_USERNAME` | PostgreSQL username | `postgres`                     |
 | `DB_PASSWORD` | PostgreSQL password | *(required, no default value)* |
 
 Set them before running the application, using any of these options:
 
 **From a terminal (Linux/macOS)**
+
 ```bash
 export DB_PASSWORD=your_password
 ./mvnw spring-boot:run
 ```
 
 **From a terminal (Windows, PowerShell)**
+
 ```powershell
 $env:DB_PASSWORD="your_password"
 ./mvnw spring-boot:run
 ```
 
-**From an IDE** (IntelliJ, Eclipse, VS Code, etc.): set the environment variable in your editor's run/debug configuration, using the same name (`DB_PASSWORD`) and value.
+**From an IDE** (IntelliJ, Eclipse, VS Code, etc.): set the environment variable in your editor's run/debug
+configuration, using the same name (`DB_PASSWORD`) and value.
 
 ### Run
 
@@ -72,8 +78,14 @@ http://localhost:8080/swagger-ui/index.html
 
 ## Project Status
 
-Actively in development. Next steps:
-- Apply the DTO pattern to the Order layer
+Actively in development. Completed:
+
+- DTO pattern applied to both Product and Order layers
+- Unit tests for the Product service layer (JUnit 5 + Mockito)
+
+Next steps:
+
+- Unit tests for the Order service layer
 - Add authentication (JWT)
 - Prepare deployment
 
