@@ -64,13 +64,13 @@ public class OrderService {
 
     public void delete(Long id) {
         Order deletedOrder = orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
         orderRepository.delete(deletedOrder);
     }
 
     public OrderResponseDTO update(Long id, OrderRequestDTO updatedOrder) {
         Order existingOrder = orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("order not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
 
         List<OrderLine> orderLines = new ArrayList<>();
         for (OrderLineRequestDTO lineDTO : updatedOrder.getOrderLines()) {
