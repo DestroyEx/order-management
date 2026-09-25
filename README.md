@@ -81,12 +81,12 @@ http://localhost:8080/swagger-ui/index.html
 Actively in development. Completed:
 
 - DTO pattern applied to both Product and Order layers
-- Unit tests for the Product service layer (JUnit 5 + Mockito)
+- Unit tests for the Product and Order service layers (JUnit 5 + Mockito)
+- JWT authentication with user registration and login
+- Role-based authorization (ADMIN/USER)
 
 Next steps:
 
-- Unit tests for the Order service layer
-- Add authentication (JWT)
 - Prepare deployment
 
 ## Notes
